@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <div><button id="deploy">Deploy</button></div>
+    <div style="font-family: Monaco, Consolas, monospace; white-space:pre; width:100%;"></div>
+    <script>
+      function deploy() {
+        fetch('/deploy', { method: 'POST' })
+          .then(resp => resp.ok && resp.json())
+          .then(body => {
+            if (!body) console.error('Error')
+            else console.log('Deploying')
+          })
+      }
+      const dep = document.getElementById('deploy')
+      dep.addEventListener('click', deploy)
+    </script>
+  </body>
+</html>
