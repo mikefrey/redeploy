@@ -6,7 +6,8 @@ module.exports = {
   deploy: {
     dir: __dirname || process.env.DEPLOY_DIR,
     cmds: [
-      `git pull`,
+      // `git pull`,
+      `git status`,
       'npm install',
       // `pm2 restart ${process.env.APP_NAME}`
     ]

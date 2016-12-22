@@ -33,22 +33,26 @@ class Runner extends EventEmitter {
     this.dir = dir
     this.cmds = cmds
     this.running = false
-    console.log(dir, cmds)
   }
 
   deploy() {
-    console.log('DEPLOYING!')
+    if (this.running) return false
 
     const run = new Run(this.dir, this.cmds)
-    run.on('end', () => {
-      console.log('DONE')
+    run.once('end', () => {
       this.running = false
+      this.emit('complete')
     })
 
-    run.on('error', err => console.error(err))
+    run.once('error', err => {
+      console.error(err)
+      this.emit('error', err)
+    })
 
     this.running = true
     run.start()
+
+    return true
   }
 
 }
