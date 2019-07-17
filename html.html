@@ -14,6 +14,17 @@
       }
       const dep = document.getElementById('deploy')
       dep.addEventListener('click', deploy)
+
+      function getStatus() {
+        fetch('/status', { method: 'GET' })
+          .then(resp => resp.ok && resp.json())
+          .then(body => {
+            if (!body) console.error('Error')
+            else console.log('Deploying')
+          })
+
+      }
+      getStatus()
     </script>
   </body>
 </html>
